@@ -1,14 +1,19 @@
 package com.twenk11k.tasksearch.ui.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.twenk11k.tasksearch.R
+import com.twenk11k.tasksearch.binding.DataBindingActivity
+import com.twenk11k.tasksearch.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DataBindingActivity() {
+
+    private val binding: ActivityMainBinding by binding(R.layout.activity_main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding.apply {
+            lifecycleOwner = this@MainActivity
+        }
     }
 
 }
