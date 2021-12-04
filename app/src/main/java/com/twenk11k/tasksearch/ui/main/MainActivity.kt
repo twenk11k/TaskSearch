@@ -1,7 +1,8 @@
-package com.twenk11k.tasksearch
+package com.twenk11k.tasksearch.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.twenk11k.tasksearch.R
 
 class MainActivity : AppCompatActivity() {
 
