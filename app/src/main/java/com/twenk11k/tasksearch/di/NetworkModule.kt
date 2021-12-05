@@ -1,6 +1,7 @@
 package com.twenk11k.tasksearch.di
 
 import com.twenk11k.tasksearch.data.network.HttpRequestInterceptor
+import com.twenk11k.tasksearch.data.network.TaskSearchService
 import com.twenk11k.tasksearch.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -30,5 +31,10 @@ object NetworkModule {
         .baseUrl(BASE_URL)
         .client(okHttpClient)
         .build()
-    
+
+    @Singleton
+    @Provides
+    fun provideTaskSearchService(retrofit: Retrofit): TaskSearchService =
+        retrofit.create(TaskSearchService::class.java)
+
 }
