@@ -21,15 +21,15 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/filter_tab_layout_height"
                 android:background="@color/transparent"
                 android:backgroundTint="@color/porcelain"
                 app:tabBackground="@drawable/bg_filter"
                 app:tabIndicatorColor="@color/transparent"
                 app:tabIndicatorHeight="0dp"
                 app:tabMode="scrollable"
-                app:tabPaddingEnd="26dp"
-                app:tabPaddingStart="26dp"
+                app:tabPaddingEnd="@dimen/filter_tab_padding"
+                app:tabPaddingStart="@dimen/filter_tab_padding"
                 app:tabRippleColor="@color/transparent"
                 app:tabTextAppearance="@style/FilterTab"
                 app:tabTextColor="@color/gray_shuttle">
