@@ -11,4 +11,5 @@
     <color name="transparent">#0000ffff</color>
     <color name="gray_hit">#a1adb3</color>
     <color name="gray_shuttle">#5c656b</color>
+    <color name="solitude">#dce2e6</color>
 </resources>
