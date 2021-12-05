@@ -1,5 +1,6 @@
 package com.twenk11k.tasksearch.di
 
+import com.twenk11k.tasksearch.data.network.HttpRequestInterceptor
 import com.twenk11k.tasksearch.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(HttpRequestInterceptor())
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 
