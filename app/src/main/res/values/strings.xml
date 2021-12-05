@@ -3,4 +3,5 @@
     <string name="search">Search</string>
     <string name="search_info">You can search for task titles, notes, users using @, tags using #, checklist items, and much more.</string>
     <string name="filter_all">All</string>
+    <string name="filter_active">Active</string>
 </resources>
