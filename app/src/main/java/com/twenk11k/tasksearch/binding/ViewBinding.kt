@@ -1,6 +1,7 @@
 package com.twenk11k.tasksearch.binding
 
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
 import com.twenk11k.tasksearch.ui.main.MainViewModel
@@ -14,6 +15,14 @@ object ViewBinding {
             View.GONE
         } else {
             View.VISIBLE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("toast")
+    fun bindToast(view: View, text: String?) {
+        text?.let {
+            Toast.makeText(view.context, it, Toast.LENGTH_SHORT).show()
         }
     }
 
