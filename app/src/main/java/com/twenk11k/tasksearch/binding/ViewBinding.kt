@@ -1,10 +1,21 @@
 package com.twenk11k.tasksearch.binding
 
+import android.view.View
 import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
 import com.twenk11k.tasksearch.ui.main.MainViewModel
 
 object ViewBinding {
+
+    @JvmStatic
+    @BindingAdapter("gone")
+    fun bindGone(view: View, isGone: Boolean) {
+        view.visibility = if (isGone) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+    }
 
     @JvmStatic
     @BindingAdapter("tabSelected")
