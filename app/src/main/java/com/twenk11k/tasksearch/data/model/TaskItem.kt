@@ -1,3 +1,7 @@
 package com.twenk11k.tasksearch.data.model
 
-data class TaskItem(val name: String, val project: String)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class TaskItem(val name: String, val project: String) : Parcelable
