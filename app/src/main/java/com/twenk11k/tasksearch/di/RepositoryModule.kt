@@ -1,7 +1,7 @@
 package com.twenk11k.tasksearch.di
 
 import com.twenk11k.tasksearch.data.network.TaskSearchService
-import com.twenk11k.tasksearch.repository.MainRepository
+import com.twenk11k.tasksearch.data.repository.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

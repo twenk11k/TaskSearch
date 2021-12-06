@@ -1,4 +1,4 @@
-package com.twenk11k.tasksearch.repository
+package com.twenk11k.tasksearch.data.repository
 
 import androidx.annotation.WorkerThread
 import com.google.gson.Gson
