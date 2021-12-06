@@ -15,13 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : DataBindingActivity() {
 
     private val binding: ActivityMainBinding by binding(R.layout.activity_main)
-    private val mainViewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
             lifecycleOwner = this@MainActivity
-            vm = mainViewModel
+            vm = viewModel
             rvTasks.adapter = TaskAdapter()
         }
     }
@@ -42,7 +42,7 @@ class MainActivity : DataBindingActivity() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    mainViewModel.setQuery(newText!!)
+                    viewModel.setQuery(newText!!)
                     return true
                 }
             })
