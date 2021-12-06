@@ -29,4 +29,8 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         }
     }
 
+    fun setQuery(query: String) {
+        this.query.value = query
+    }
+
 }
