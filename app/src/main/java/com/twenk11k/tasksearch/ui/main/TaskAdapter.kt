@@ -10,7 +10,7 @@ import com.twenk11k.tasksearch.databinding.ItemTaskBinding
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
-    private val items = ArrayList<Any>()
+    private val items = ArrayList<TaskItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemTaskBinding = DataBindingUtil.inflate(
@@ -26,11 +26,11 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            task = items[position] as TaskItem
+            task = items[position]
         }
     }
 
-    fun updateAdapter(list: List<Any>) {
+    fun updateAdapter(list: List<TaskItem>) {
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
