@@ -6,4 +6,5 @@
     <string name="filter_active">Active</string>
     <string name="filter_archived">Archived</string>
     <string name="project">Project</string>
+    <string name="task">Task</string>
 </resources>
