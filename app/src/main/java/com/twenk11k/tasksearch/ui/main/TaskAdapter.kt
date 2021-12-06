@@ -8,7 +8,8 @@ import com.twenk11k.tasksearch.R
 import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.databinding.ItemTaskBinding
 
-class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter(private val clickListener: TaskItemClickListener) :
+    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     private val items = ArrayList<TaskItem>()
 
@@ -19,7 +20,11 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(binding).apply {
+            binding.root.setOnClickListener {
+                clickListener.showTaskDetails(items[absoluteAdapterPosition])
+            }
+        }
     }
 
     override fun getItemCount(): Int = items.size

@@ -8,7 +8,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import com.twenk11k.tasksearch.R
 import com.twenk11k.tasksearch.binding.DataBindingActivity
+import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.databinding.ActivityMainBinding
+import com.twenk11k.tasksearch.ui.detail.TaskDetailDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +24,11 @@ class MainActivity : DataBindingActivity() {
         binding.apply {
             lifecycleOwner = this@MainActivity
             vm = viewModel
-            rvTasks.adapter = TaskAdapter()
+            rvTasks.adapter = TaskAdapter(object : TaskItemClickListener {
+                override fun showTaskDetails(taskItem: TaskItem) {
+                    displayTaskDetailsDialog(taskItem)
+                }
+            })
         }
     }
 
@@ -47,6 +53,11 @@ class MainActivity : DataBindingActivity() {
                 }
             })
         }
+    }
+
+    private fun displayTaskDetailsDialog(taskItem: TaskItem) {
+        val taskDetailDialogFragment = TaskDetailDialogFragment.newInstance(taskItem)
+        taskDetailDialogFragment.show(supportFragmentManager, "task_detail_dialog_fragment")
     }
 
 }
