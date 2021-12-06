@@ -19,6 +19,7 @@ class MainActivity : DataBindingActivity() {
         binding.apply {
             lifecycleOwner = this@MainActivity
             vm = mainViewModel
+            rvTasks.adapter = TaskAdapter()
         }
     }
 
