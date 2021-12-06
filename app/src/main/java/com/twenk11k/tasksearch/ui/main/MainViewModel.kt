@@ -17,9 +17,10 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
     val toastMessage = ObservableField<String>()
 
     private val query = MutableStateFlow("")
+    private val loadTrigger = MutableLiveData(Unit)
 
     init {
-        taskListLiveData = query.asLiveData().switchMap {
+        taskListLiveData = loadTrigger.switchMap {
             mainRepository.getTaskSearch(
                 query = query.value,
                 onStart = { isLoading.set(true) },
@@ -31,6 +32,7 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
 
     fun setQuery(query: String) {
         this.query.value = query
+        loadTrigger.value = Unit
     }
 
 }
