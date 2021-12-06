@@ -17,6 +17,7 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
     @WorkerThread
     fun getTaskSearch(
         query: String,
+        status: Int,
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
@@ -25,7 +26,8 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
             val response = taskSearchService.fetchTaskSearchResponse(
                 filter = Gson().toJson(
                     TaskSearchRequest(
-                        text = query
+                        text = query,
+                        status = if (status != 0) status else null
                     )
                 )
             )
