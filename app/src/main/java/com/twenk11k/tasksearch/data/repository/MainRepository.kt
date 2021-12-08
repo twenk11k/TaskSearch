@@ -23,35 +23,37 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
         onError: (String?) -> Unit
     ) = flow {
         try {
-            val response = taskSearchService.fetchTaskSearchResponse(
-                filter = Gson().toJson(
-                    TaskSearchRequest(
-                        text = query,
-                        status = if (status != 0) status else null
+            val list = arrayListOf<TaskItem>()
+            if (query.isNotEmpty()) {
+                val response = taskSearchService.fetchTaskSearchResponse(
+                    filter = Gson().toJson(
+                        TaskSearchRequest(
+                            text = query,
+                            status = if (status != 0) status else null
+                        )
                     )
                 )
-            )
-            response.body()?.results?.let {
-                val list = ArrayList<TaskItem>()
-                for (curr in it.tasks) {
-                    var projectName = ""
-                    for (currSection in it.sections) {
-                        if (currSection.id == curr.sectionId) {
-                            for (currProject in it.projects) {
-                                if (currSection.projectId == currProject.id) {
-                                    projectName = currProject.name
+                response.body()?.results?.let {
+                    for (curr in it.tasks) {
+                        var projectName = ""
+                        for (currSection in it.sections) {
+                            if (currSection.id == curr.sectionId) {
+                                for (currProject in it.projects) {
+                                    if (currSection.projectId == currProject.id) {
+                                        projectName = currProject.name
+                                    }
+                                    break
                                 }
                                 break
                             }
-                            break
+                        }
+                        if (projectName.isNotBlank()) {
+                            list.add(TaskItem(curr.name, projectName))
                         }
                     }
-                    if (projectName.isNotBlank()) {
-                        list.add(TaskItem(curr.name, projectName))
-                    }
                 }
-                emit(list)
             }
+            emit(list)
         } catch (e: Exception) {
             onError(e.message)
         }
