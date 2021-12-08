@@ -11,6 +11,7 @@ import com.twenk11k.tasksearch.binding.DataBindingActivity
 import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.databinding.ActivityMainBinding
 import com.twenk11k.tasksearch.ui.detail.TaskDetailDialogFragment
+import com.twenk11k.tasksearch.util.Constants.SEARCH_DELAY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +49,11 @@ class MainActivity : DataBindingActivity() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    viewModel.setQuery(newText!!)
+                    newText?.let {
+                        postDelayed({
+                            viewModel.setQuery(it)
+                        }, SEARCH_DELAY)
+                    }
                     return true
                 }
             })
