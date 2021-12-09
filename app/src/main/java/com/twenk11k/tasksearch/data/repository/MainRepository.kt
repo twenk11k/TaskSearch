@@ -34,21 +34,15 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
                     )
                 )
                 response.body()?.results?.let {
-                    for (curr in it.tasks) {
-                        var projectName = ""
-                        for (currSection in it.sections) {
-                            if (currSection.id == curr.sectionId) {
-                                for (currProject in it.projects) {
-                                    if (currSection.projectId == currProject.id) {
-                                        projectName = currProject.name
+                    it.tasks.forEach { task ->
+                        it.sections.forEach { section ->
+                            if (section.id == task.sectionId) {
+                                it.projects.forEach { project ->
+                                    if (section.projectId == project.id) {
+                                        list.add(TaskItem(task.name, project.name))
                                     }
-                                    break
                                 }
-                                break
                             }
-                        }
-                        if (projectName.isNotBlank()) {
-                            list.add(TaskItem(curr.name, projectName))
                         }
                     }
                 }
