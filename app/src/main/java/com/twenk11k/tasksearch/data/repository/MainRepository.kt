@@ -2,6 +2,8 @@ package com.twenk11k.tasksearch.data.repository
 
 import androidx.annotation.WorkerThread
 import com.google.gson.Gson
+import com.twenk11k.tasksearch.data.model.Filter
+import com.twenk11k.tasksearch.data.model.Results
 import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.data.model.TaskSearchRequest
 import com.twenk11k.tasksearch.data.network.TaskSearchService
@@ -17,7 +19,7 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
     @WorkerThread
     fun getTaskSearch(
         query: String,
-        status: Int,
+        filter: Filter,
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
@@ -26,12 +28,7 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
             val list = arrayListOf<TaskItem>()
             if (query.isNotEmpty()) {
                 val response = taskSearchService.fetchTaskSearchResponse(
-                    filter = Gson().toJson(
-                        TaskSearchRequest(
-                            text = query,
-                            status = if (status != 0) status else null
-                        )
-                    )
+                    filter = Gson().toJson(TaskSearchRequest(query, filter.status))
                 )
                 response.body()?.results?.let {
                     list.addAll(generateTaskItemList(it))

@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
+import com.twenk11k.tasksearch.data.model.Filter
 import com.twenk11k.tasksearch.ui.main.MainViewModel
 import com.twenk11k.tasksearch.util.Constants.SEARCH_DELAY
 
@@ -34,9 +35,9 @@ object ViewBinding {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tabLayout.postDelayed({
                     when (tab?.position) {
-                        0 -> viewModel.setStatus(0)
-                        1 -> viewModel.setStatus(1)
-                        2 -> viewModel.setStatus(18)
+                        0 -> viewModel.setStatus(Filter.ALL)
+                        1 -> viewModel.setStatus(Filter.ACTIVE)
+                        2 -> viewModel.setStatus(Filter.ARCHIVED)
                     }
                 }, SEARCH_DELAY)
             }
