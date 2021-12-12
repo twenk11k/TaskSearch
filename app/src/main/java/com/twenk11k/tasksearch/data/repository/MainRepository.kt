@@ -45,7 +45,7 @@ class MainRepository @Inject constructor(
                         emit(list)
                     }
                 } else {
-                    val modifiedQuery = "${query.trim().removeNonAlphaNumericCharacters()}%"
+                    val modifiedQuery = "%${query.trim().removeNonAlphaNumericCharacters()}%"
                     val response = if (filter == Filter.ALL) {
                         taskSearchDao.getTaskItemList(modifiedQuery)
                     } else {
