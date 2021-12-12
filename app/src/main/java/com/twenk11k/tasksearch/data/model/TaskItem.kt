@@ -4,4 +4,9 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TaskItem(val name: String, val project: String) : Parcelable
+data class TaskItem(
+    val id: Int,
+    val name: String,
+    val project: String,
+    val status: Int
+) : Parcelable
