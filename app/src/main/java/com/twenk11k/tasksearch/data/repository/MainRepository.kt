@@ -9,6 +9,7 @@ import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.data.model.TaskSearchRequest
 import com.twenk11k.tasksearch.data.network.TaskSearchService
 import com.twenk11k.tasksearch.db.TaskSearchDao
+import com.twenk11k.tasksearch.extension.removeNonAlphaNumericCharacters
 import com.twenk11k.tasksearch.util.Utils.isConnected
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -44,10 +45,11 @@ class MainRepository @Inject constructor(
                         emit(list)
                     }
                 } else {
+                    val modifiedQuery = "${query.trim().removeNonAlphaNumericCharacters()}%"
                     val response = if (filter == Filter.ALL) {
-                        taskSearchDao.getTaskItemList("${query.trim()}%")
+                        taskSearchDao.getTaskItemList(modifiedQuery)
                     } else {
-                        taskSearchDao.getTaskItemListByStatus("${query.trim()}%", filter.status!!)
+                        taskSearchDao.getTaskItemListByStatus(modifiedQuery, filter.status!!)
                     }
                     emit(response)
                 }
