@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.twenk11k.tasksearch.R
 import com.twenk11k.tasksearch.db.AppDatabase
+import com.twenk11k.tasksearch.db.TaskSearchDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,12 @@ object DatabaseModule {
             AppDatabase::class.java,
             application.getString(R.string.database_name)
         ).fallbackToDestructiveMigration().build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTaskSearchDao(appDatabase: AppDatabase): TaskSearchDao {
+        return appDatabase.taskSearchDao()
     }
 
 }
