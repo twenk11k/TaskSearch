@@ -15,4 +15,7 @@ interface TaskSearchDao {
     @Query("SELECT * FROM tasks WHERE name LIKE :query")
     suspend fun getTaskItemList(query: String): List<TaskItem>
 
+    @Query("SELECT * FROM tasks WHERE name LIKE :query AND status IN (:status)")
+    suspend fun getTaskItemListByStatus(query: String, status: Int): List<TaskItem>
+
 }
