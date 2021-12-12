@@ -9,6 +9,7 @@ import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.data.model.TaskSearchRequest
 import com.twenk11k.tasksearch.data.network.TaskSearchService
 import com.twenk11k.tasksearch.db.TaskSearchDao
+import com.twenk11k.tasksearch.util.Utils.isConnected
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -33,15 +34,26 @@ class MainRepository @Inject constructor(
         try {
             val list = arrayListOf<TaskItem>()
             if (query.isNotEmpty()) {
-                val response = taskSearchService.fetchTaskSearchResponse(
-                    filter = Gson().toJson(TaskSearchRequest(query, filter.status))
-                )
-                response.body()?.results?.let {
-                    list.addAll(generateTaskItemList(it))
-                    emit(list)
+                if (isConnected(context)) {
+                    val response = taskSearchService.fetchTaskSearchResponse(
+                        filter = Gson().toJson(TaskSearchRequest(query, filter.status))
+                    )
+                    response.body()?.results?.let {
+                        list.addAll(generateTaskItemList(it))
+                        taskSearchDao.insertTaskItemList(list)
+                        emit(list)
+                    }
+                } else {
+                    val response = if (filter == Filter.ALL) {
+                        taskSearchDao.getTaskItemList("%$query%")
+                    } else {
+                        taskSearchDao.getTaskItemListByStatus("%$query%", filter.status!!)
+                    }
+                    emit(response)
                 }
+            } else {
+                emit(list)
             }
-            emit(list)
         } catch (e: Exception) {
             onError(e.message)
         }
