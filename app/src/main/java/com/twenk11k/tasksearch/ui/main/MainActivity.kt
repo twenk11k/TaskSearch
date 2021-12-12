@@ -27,7 +27,7 @@ class MainActivity : DataBindingActivity() {
             vm = viewModel
             rvTasks.adapter = TaskAdapter(object : TaskItemClickListener {
                 override fun showTaskDetails(taskItem: TaskItem) {
-                    displayTaskDetailsDialog(taskItem)
+                    showTaskDetailDialogFragment(taskItem)
                 }
             })
         }
@@ -60,7 +60,7 @@ class MainActivity : DataBindingActivity() {
         }
     }
 
-    private fun displayTaskDetailsDialog(taskItem: TaskItem) {
+    private fun showTaskDetailDialogFragment(taskItem: TaskItem) {
         val taskDetailDialogFragment = TaskDetailDialogFragment.newInstance(taskItem)
         taskDetailDialogFragment.show(supportFragmentManager, "task-detail-dialog-fragment")
     }
