@@ -7,8 +7,7 @@ import okhttp3.Response
 class HttpRequestInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        var request = chain.request()
-        request = request.newBuilder()
+        val request = chain.request().newBuilder()
             .header("Authorization", "Bearer $BEARER").build()
         return chain.proceed(request)
     }
