@@ -5,7 +5,7 @@ import com.twenk11k.tasksearch.data.model.TaskItem
 
 fun String.removeNonAlphaNumericCharacters(): String {
     return this.toCharArray()
-        .filter { it.isLetterOrDigit() }
+        .filter { it.isWhitespace() || it.isLetterOrDigit() }
         .joinToString(separator = "")
 }
 
