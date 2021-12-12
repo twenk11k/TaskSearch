@@ -12,11 +12,12 @@ fun String.removeNonAlphaNumericCharacters(): String {
 fun Results.generateTaskItemList(): List<TaskItem> {
     val list = arrayListOf<TaskItem>()
     this.tasks.forEach { task ->
-        this.sections.forEach { section ->
+        this.sections.forEach sections@{ section ->
             if (section.id == task.sectionId) {
                 this.projects.forEach { project ->
                     if (section.projectId == project.id) {
                         list.add(TaskItem(task.id, task.name, project.name, task.status))
+                        return@sections
                     }
                 }
             }
