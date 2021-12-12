@@ -45,9 +45,9 @@ class MainRepository @Inject constructor(
                     }
                 } else {
                     val response = if (filter == Filter.ALL) {
-                        taskSearchDao.getTaskItemList("%$query%")
+                        taskSearchDao.getTaskItemList("${query.trim()}%")
                     } else {
-                        taskSearchDao.getTaskItemListByStatus("%$query%", filter.status!!)
+                        taskSearchDao.getTaskItemListByStatus("${query.trim()}%", filter.status!!)
                     }
                     emit(response)
                 }
