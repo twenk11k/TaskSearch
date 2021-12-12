@@ -62,7 +62,7 @@ class MainActivity : DataBindingActivity() {
 
     private fun displayTaskDetailsDialog(taskItem: TaskItem) {
         val taskDetailDialogFragment = TaskDetailDialogFragment.newInstance(taskItem)
-        taskDetailDialogFragment.show(supportFragmentManager, "task_detail_dialog_fragment")
+        taskDetailDialogFragment.show(supportFragmentManager, "task-detail-dialog-fragment")
     }
 
 }
