@@ -26,7 +26,6 @@ class TaskDetailDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         taskItem = arguments?.getParcelable("taskItem")
     }
 
