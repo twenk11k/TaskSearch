@@ -1,4 +1,4 @@
-package com.twenk11k.tasksearch.binding
+package com.twenk11k.tasksearch.ui.binding
 
 import android.view.View
 import android.widget.Toast

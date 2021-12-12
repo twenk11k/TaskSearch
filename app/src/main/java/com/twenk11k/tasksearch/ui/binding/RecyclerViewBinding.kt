@@ -1,4 +1,4 @@
-package com.twenk11k.tasksearch.binding
+package com.twenk11k.tasksearch.ui.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView

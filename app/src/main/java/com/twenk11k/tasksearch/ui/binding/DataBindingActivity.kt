@@ -1,4 +1,4 @@
-package com.twenk11k.tasksearch.binding
+package com.twenk11k.tasksearch.ui.binding
 
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
