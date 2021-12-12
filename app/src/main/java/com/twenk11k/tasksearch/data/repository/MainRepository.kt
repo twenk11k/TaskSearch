@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import com.google.gson.Gson
 import com.twenk11k.tasksearch.data.model.Filter
-import com.twenk11k.tasksearch.data.model.Results
 import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.data.model.TaskSearchRequest
 import com.twenk11k.tasksearch.data.network.TaskSearchService
 import com.twenk11k.tasksearch.db.TaskSearchDao
+import com.twenk11k.tasksearch.extension.generateTaskItemList
 import com.twenk11k.tasksearch.extension.removeNonAlphaNumericCharacters
 import com.twenk11k.tasksearch.util.Utils.isConnected
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +40,7 @@ class MainRepository @Inject constructor(
                         filter = Gson().toJson(TaskSearchRequest(query, filter.status))
                     )
                     response.body()?.results?.let {
-                        list.addAll(generateTaskItemList(it))
+                        list.addAll(it.generateTaskItemList())
                         taskSearchDao.insertTaskItemList(list)
                         emit(list)
                     }
@@ -60,21 +60,5 @@ class MainRepository @Inject constructor(
             onError(e.message)
         }
     }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
-
-    private fun generateTaskItemList(results: Results): List<TaskItem> {
-        val list = arrayListOf<TaskItem>()
-        results.tasks.forEach { task ->
-            results.sections.forEach { section ->
-                if (section.id == task.sectionId) {
-                    results.projects.forEach { project ->
-                        if (section.projectId == project.id) {
-                            list.add(TaskItem(task.id, task.name, project.name, task.status))
-                        }
-                    }
-                }
-            }
-        }
-        return list
-    }
 
 }
