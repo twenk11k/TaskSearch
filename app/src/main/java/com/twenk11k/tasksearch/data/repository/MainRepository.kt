@@ -34,17 +34,8 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
                     )
                 )
                 response.body()?.results?.let {
-                    it.tasks.forEach { task ->
-                        it.sections.forEach { section ->
-                            if (section.id == task.sectionId) {
-                                it.projects.forEach { project ->
-                                    if (section.projectId == project.id) {
-                                        list.add(TaskItem(task.name, project.name))
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    list.addAll(generateTaskItemList(it))
+                    emit(list)
                 }
             }
             emit(list)
@@ -52,5 +43,21 @@ class MainRepository @Inject constructor(private val taskSearchService: TaskSear
             onError(e.message)
         }
     }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
+
+    private fun generateTaskItemList(results: Results): List<TaskItem> {
+        val list = arrayListOf<TaskItem>()
+        results.tasks.forEach { task ->
+            results.sections.forEach { section ->
+                if (section.id == task.sectionId) {
+                    results.projects.forEach { project ->
+                        if (section.projectId == project.id) {
+                            list.add(TaskItem(task.id, task.name, project.name, task.status))
+                        }
+                    }
+                }
+            }
+        }
+        return list
+    }
 
 }
