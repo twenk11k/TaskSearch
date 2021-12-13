@@ -33,9 +33,13 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         }
     }
 
+    private fun refresh() {
+        loadTrigger.value = Unit
+    }
+
     fun setQuery(query: String) {
         this.query = query
-        loadTrigger.value = Unit
+        refresh()
     }
 
     fun setStatus(filter: Filter) {
@@ -43,7 +47,7 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
             return
         }
         this.filter = filter
-        setQuery(query)
+        refresh()
     }
 
 }
