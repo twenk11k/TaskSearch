@@ -6,6 +6,5 @@ data class Task(
     val id: Int,
     val name: String,
     val status: Int,
-    @SerializedName("section_id")
-    val sectionId: Int
+    @SerializedName("section_id") val sectionId: Int
 )
