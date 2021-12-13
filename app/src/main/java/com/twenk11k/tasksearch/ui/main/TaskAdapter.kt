@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.twenk11k.tasksearch.R
 import com.twenk11k.tasksearch.data.model.TaskItem
 import com.twenk11k.tasksearch.databinding.ItemTaskBinding
+import com.twenk11k.tasksearch.extension.autoNotify
+import kotlin.properties.Delegates
 
 class TaskAdapter(private val clickListener: TaskItemClickListener) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
-    private val items = ArrayList<TaskItem>()
+    private var items: List<TaskItem> by Delegates.observable(emptyList()) { _, oldList, newList ->
+        autoNotify(oldList, newList) { oldItem, newItem -> oldItem.id == newItem.id }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemTaskBinding = DataBindingUtil.inflate(
@@ -36,9 +40,7 @@ class TaskAdapter(private val clickListener: TaskItemClickListener) :
     }
 
     fun updateAdapter(list: List<TaskItem>) {
-        items.clear()
-        items.addAll(list)
-        notifyDataSetChanged()
+        items = list
     }
 
     inner class ViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
