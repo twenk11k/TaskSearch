@@ -41,7 +41,7 @@ class TaskDetailDialogFragment : DialogFragment() {
             false
         ).apply {
             task = taskItem
-            this.lifecycleOwner = viewLifecycleOwner
+            lifecycleOwner = viewLifecycleOwner
         }.root
     }
 
